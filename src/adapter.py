@@ -8,7 +8,7 @@ from utils import from_timestamp
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # The Graph endpoint
-endpoint = "https://api.studio.thegraph.com/query/73855/openblocklabs/v0.0.7"
+endpoint = "https://api.studio.thegraph.com/query/73855/openblocklabs/v0.1"
 
 # Number of records to fetch in each request
 PAGE_SIZE = 1000
