@@ -8,7 +8,7 @@ from utils import from_timestamp
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # The Graph endpoint
-endpoint = "https://api.studio.thegraph.com/query/73855/openblocklabs/v0.1"
+endpoint = "https://api.studio.thegraph.com/query/73855/openblocklabs/v0.2"
 
 # Number of records to fetch in each request
 PAGE_SIZE = 1000
@@ -20,13 +20,15 @@ query($first: Int!, $timestamp: Int!){
     blockNumber
     netSupplied
     timestamp
-    user {
-      id
-    }
-    token {
-      id
-      name
-      symbol
+    balance {
+      user {
+        id
+      }
+      token {
+        symbol
+        name
+        id
+      }
     }
   }
 }
@@ -39,13 +41,15 @@ query($first: Int!, $timestamp: Int!, $blockNumber: Int!) {
     blockNumber
     netSupplied
     timestamp
-    user {
-      id
-    }
-    token {
-      id
-      name
-      symbol
+    balance {
+      user {
+        id
+      }
+      token {
+        symbol
+        name
+        id
+      }
     }
   }
 }
@@ -102,9 +106,9 @@ def main():
         data.append({
             "block_number": snapshot['blockNumber'],
             "timestamp": from_timestamp(int(snapshot['timestamp'])),
-            "owner_address": snapshot['user']['id'],
-            "token_symbol": snapshot['token']['symbol'],
-            "token_address": snapshot['token']['id'],
+            "owner_address": snapshot['balance']['user']['id'],
+            "token_symbol": snapshot['balance']['token']['symbol'],
+            "token_address": snapshot['balance']['token']['id'],
             "token_amount": int(snapshot['netSupplied'])
         })
     
